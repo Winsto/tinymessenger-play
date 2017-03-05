@@ -4,10 +4,8 @@ using TinyMessenger;
 
 namespace Core
 {
-    public interface IDoSomethingOuterResponse : ITinyMessage
+    public interface IDoSomethingOuterResponse : ITinyMessage, ISessionMessage
     {
         int Response { get; set; }
-        Action<object> cb { get; set; }
-
     }
 }

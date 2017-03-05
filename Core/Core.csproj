@@ -45,6 +45,7 @@
     <Compile Include="IDoSomethingOuter.cs" />
     <Compile Include="IDoSomethingOuterResponse.cs" />
     <Compile Include="IDoSomethingOuterResponseReceived.cs" />
+    <Compile Include="ISessionMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

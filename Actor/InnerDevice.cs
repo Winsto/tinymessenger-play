@@ -12,8 +12,7 @@ namespace Actor
         public InnerDevice(ITinyMessengerHub msgr)
         {
             _msgr = msgr;
-            subscribe();
-           
+            subscribe();           
         }
 
         private void subscribe()
@@ -24,8 +23,9 @@ namespace Actor
         private void onDoSomethingMessage(IDoSomethingInner obj)
         {
             Console.WriteLine("Inner:onDoSomethingInner");
-            IDoSomethingInnerResponse resp = new DoSomethingInnerResponse(this) { Result=obj.a*obj.b,
-            cb=obj.cb};
+            IDoSomethingInnerResponse resp = new DoSomethingInnerResponse(this) {
+                Result =obj.a*obj.b,
+                SessionUid=obj.SessionUid};
             _msgr.Publish<IDoSomethingInnerResponse>(resp);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Core;
 using System;
+using System.Collections.Generic;
 using TinyMessenger;
 
 namespace Originator
@@ -7,10 +8,11 @@ namespace Originator
     public class OuterDevice
     {
         private TinyMessengerHub _msgr;
-
+        private Dictionary<Guid, Action<object>> _callbacks;
         public OuterDevice(TinyMessengerHub msgr)
         {
             _msgr = msgr;
+            _callbacks = new Dictionary<Guid, Action<object>>();
             subscribe();
            
         }
@@ -20,7 +22,7 @@ namespace Originator
             _msgr.Subscribe<IDoSomethingOuterResponse>(msg =>
             {
                 Console.WriteLine("Outer:DoSomethingOuterResponse");
-                Action<object> callback = msg.cb;
+                Action<object> callback =_callbacks[msg.SessionUid];
                 callback(msg);
             }); 
         }
@@ -30,6 +32,7 @@ namespace Originator
             Console.WriteLine("Outer:TriggerPublish");
             var x = 1;
             var y = 2;
+
             Action<object> callback = outerResponse =>
             {
                 Console.WriteLine("Outer:OuterResponse Callback");
@@ -40,8 +43,10 @@ namespace Originator
                 };
                 _msgr.Publish<IDoSomethingOuterResponseReceived>(msg);
             };
+            var sessionUid = Guid.NewGuid();
+            _callbacks.Add(sessionUid, callback);
 
-            IDoSomethingOuter outerMsg = new DoSomethingOuter(this) { x = x, y = y, cb=callback };
+            IDoSomethingOuter outerMsg = new DoSomethingOuter(this) { x = x, y = y, SessionUid=sessionUid };
             _msgr.Publish<IDoSomethingOuter>(outerMsg);
 
         }

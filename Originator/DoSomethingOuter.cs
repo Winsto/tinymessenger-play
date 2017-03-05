@@ -6,11 +6,13 @@ namespace Originator
 {
     public class DoSomethingOuter : TinyMessageBase,IDoSomethingOuter
     {
+        
+
         public DoSomethingOuter(object sender) : base(sender)
         {
         }
 
-        public Action<object> cb { get; set; }
+        public Guid SessionUid { get; set; }
 
         public int x { get; set; }
         public int y { get; set; }
@@ -20,8 +22,7 @@ namespace Originator
         public DoSomethingOuterResponse(object sender) : base(sender)
         {
         }
-        public Action<object> cb { get; set; }
-
+        public Guid SessionUid { get; set; }
         public int Response { get; set; }
     }
     public class DoSomethingOuterResponseReceived : TinyMessageBase, IDoSomethingOuterResponseReceived
@@ -29,7 +30,7 @@ namespace Originator
         public DoSomethingOuterResponseReceived(object sender) : base(sender)
         {
         }
-
+        public Guid SessionUid { get; set; }
         public string Message { get; set; }
     }
 }

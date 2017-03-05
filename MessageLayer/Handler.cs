@@ -45,7 +45,7 @@ namespace MessageLayer
             IDoSomethingOuterResponse msg = new DoSomethingOuterResponse(this)
             {
                 Response = obj.Result,
-                cb = obj.cb
+                SessionUid = obj.SessionUid
             };
             _msgr.Publish<IDoSomethingOuterResponse>(msg);
         }
@@ -62,7 +62,7 @@ namespace MessageLayer
             {
                 a = obj.x,
                 b = obj.y,
-                cb = obj.cb
+                SessionUid = obj.SessionUid
             };
             _msgr.Publish<IDoSomethingInner>(msg);
         }

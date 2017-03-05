@@ -12,15 +12,14 @@ namespace Actor
 
         public int a { get; set; }
         public int b { get; set; }
-
-        public Action<object> cb { get; set; }
+        public Guid SessionUid { get; set; }
     }
     public class DoSomethingInnerResponse : TinyMessageBase,IDoSomethingInnerResponse
     {
         public DoSomethingInnerResponse(object sender) : base(sender)
         {
         }
-        public Action<object> cb { get; set; }
+        public Guid SessionUid { get; set; }
         public int Result { get; set; }
 
     }
